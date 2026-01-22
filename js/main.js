@@ -52,7 +52,7 @@ function initThemeToggle() {
 function initMobileMenu() {
     const navToggle = document.querySelector('.nav-toggle');
     const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-cta');
 
     if (!navToggle || !mobileMenu) return;
 

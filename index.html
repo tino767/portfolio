@@ -39,10 +39,10 @@
                     </svg>
                 </button>
                 <a href="#contact" class="nav-cta">Let's Talk</a>
+                <button class="nav-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
             </div>
-            <button class="nav-toggle" aria-label="Toggle menu">
-                <span class="hamburger"></span>
-            </button>
         </div>
     </nav>
 
@@ -51,6 +51,13 @@
         <a href="#work" class="mobile-link">Work</a>
         <a href="#about" class="mobile-link">About</a>
         <a href="#contact" class="mobile-link">Contact</a>
+        <a href="#contact" class="mobile-cta">
+            Let's Talk
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+        </a>
     </div>
 
     <!-- Hero Section -->
@@ -69,7 +76,7 @@
                             Gilbert, AZ
                         </span>
                     </div>
-                    <h1 class="hero-title">I craft digital <span class="highlight">experiences</span><br>that perform</h1>
+                    <h1 class="hero-title">Designer who <span class="highlight">codes</span>,<br>developer who <span class="highlight">designs</span></h1>
                     <p class="hero-desc">UI/UX Engineer turning complex problems into intuitive, accessible interfaces. I design with code and build with empathy.</p>
                     <div class="hero-actions">
                         <a href="#work" class="btn-primary">
@@ -150,109 +157,91 @@
             </div>
 
             <div class="work-grid">
-                <!-- Project 1 - Featured -->
+                <!-- Project 1 - Featured: ecoWattch -->
                 <article class="project-card featured fade-up">
                     <div class="project-image">
-                        <img src="assets/projects/gradguard.jpg" alt="GradGuard Component System">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-meta">
-                            <div class="project-tags">
-                                <span class="tag">Design Systems</span>
-                                <span class="tag">UI/UX</span>
-                            </div>
-                            <span class="project-number">01</span>
-                        </div>
-                        <h3 class="project-title">GradGuard Component System</h3>
-                        <p class="project-desc">Audited entire marketing and product ecosystem to consolidate fragmented UI patterns into a universal, reusable component system.</p>
-                        <a href="#" class="project-link">
-                            View Case Study
-                            <span class="arrow-btn">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                                    <polyline points="7 7 17 7 17 17"></polyline>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Project 2 -->
-                <article class="project-card fade-up">
-                    <div class="project-image">
-                        <img src="assets/projects/ecowattch.jpg" alt="ecoWattch">
+                        <img src="assets/projects/ecoWattch.jpg" alt="ecoWattch">
                     </div>
                     <div class="project-content">
                         <div class="project-meta">
                             <div class="project-tags">
                                 <span class="tag">Mobile App</span>
+                                <span class="tag">Capstone</span>
+                            </div>
+                            <span class="project-number">01</span>
+                        </div>
+                        <h3 class="project-title">ecoWattch</h3>
+                        <p class="project-desc">Gamified mobile app powered by Willow's API to drive campus energy conservation by putting dorms head-to-head in friendly competition.</p>
+                        <ul class="project-highlights">
+                            <li>Streak-based engagement system to build lasting habits</li>
+                            <li>Real-time visual feedback on energy consumption</li>
+                            <li>Team leaderboards with customizable flair and rewards</li>
+                            <li>Psychology-driven design for sustained participation</li>
+                        </ul>
+                        <div class="project-role">
+                            <span class="role-label">Role:</span> UX Research, UI Design, Prototyping
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: When to Water -->
+                <article class="project-card fade-up">
+                    <div class="project-image">
+                        <img src="assets/projects/When_to_water.jpg" alt="When to Water">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-meta">
+                            <div class="project-tags">
+                                <span class="tag">Redesign</span>
                             </div>
                             <span class="project-number">02</span>
                         </div>
-                        <h3 class="project-title">ecoWattch</h3>
-                        <p class="project-desc">Gamified energy conservation app integrating Willow's energy monitoring API.</p>
-                        <a href="#" class="project-link">
-                            View Project
-                            <span class="arrow-btn">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                                    <polyline points="7 7 17 7 17 17"></polyline>
-                                </svg>
-                            </span>
-                        </a>
+                        <h3 class="project-title">When to Water</h3>
+                        <p class="project-desc">Complete redesign of a top-rated plant care app—reduced screen depth, improved glanceability, and simplified the experience.</p>
                     </div>
                 </article>
 
-                <!-- Project 3 -->
+                <!-- Project 3: Stepping Stones -->
                 <article class="project-card fade-up">
                     <div class="project-image">
-                        <img src="assets/projects/policy-manager.jpg" alt="Master Policy Manager">
+                        <img src="assets/projects/Stepping_Stones.jpg" alt="Stepping Stones">
                     </div>
                     <div class="project-content">
                         <div class="project-meta">
                             <div class="project-tags">
-                                <span class="tag">Dashboard</span>
+                                <span class="tag">In Progress</span>
                             </div>
                             <span class="project-number">03</span>
                         </div>
-                        <h3 class="project-title">Master Policy Manager</h3>
-                        <p class="project-desc">Admin dashboard for viewing, modifying, and managing complex policy data.</p>
-                        <a href="#" class="project-link">
-                            View Project
-                            <span class="arrow-btn">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                                    <polyline points="7 7 17 7 17 17"></polyline>
-                                </svg>
-                            </span>
-                        </a>
+                        <h3 class="project-title">Stepping Stones</h3>
+                        <p class="project-desc">A minimal desktop kanban board built for glanceability—cutting through the clutter of Trello and Jira.</p>
                     </div>
                 </article>
 
-                <!-- Project 4 - Featured -->
+                <!-- Project 4 - Featured: GradGuard -->
                 <article class="project-card featured fade-up">
                     <div class="project-image">
-                        <img src="assets/projects/harmon.jpg" alt="Harmon User Portal">
+                        <img src="assets/projects/gradguard_CMS_compress.PNG" alt="GradGuard Design System Audit">
                     </div>
                     <div class="project-content">
                         <div class="project-meta">
                             <div class="project-tags">
-                                <span class="tag">Web App</span>
-                                <span class="tag">Frontend</span>
+                                <span class="tag">Design Systems</span>
+                                <span class="tag">UX Audit</span>
                             </div>
                             <span class="project-number">04</span>
                         </div>
-                        <h3 class="project-title">Harmon User Portal</h3>
-                        <p class="project-desc">Enhanced GradGuard's user management portal with configurable toggles, advanced search, and cross-product fixes.</p>
-                        <a href="#" class="project-link">
-                            View Case Study
-                            <span class="arrow-btn">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                                    <polyline points="7 7 17 7 17 17"></polyline>
-                                </svg>
-                            </span>
-                        </a>
+                        <h3 class="project-title">GradGuard Design System</h3>
+                        <p class="project-desc">Led a comprehensive audit of GradGuard's retail site to unify fragmented UI patterns into a scalable component library for Statamic CMS.</p>
+                        <ul class="project-highlights">
+                            <li>Catalogued every UI element across the marketing ecosystem</li>
+                            <li>Mapped complete user navigation flows in FigJam</li>
+                            <li>Consolidated patterns into reusable universal components</li>
+                            <li>Identified and eliminated redundant navigation paths</li>
+                        </ul>
+                        <div class="project-role">
+                            <span class="role-label">Role:</span> Design Systems, UX Audit, Documentation
+                        </div>
                     </div>
                 </article>
             </div>
@@ -265,12 +254,12 @@
             <div class="section-header">
                 <div>
                     <h2 class="section-title">About Me</h2>
+                    <p class="section-subtitle">Background, skills, and tools I work with</p>
                 </div>
             </div>
 
             <div class="about-grid">
                 <div class="about-main fade-up">
-                    <h2>Designer who codes, developer who designs</h2>
                     <p>I don't just hand off mockups—I ship them. With a BS in Multidisciplinary Engineering (UI/UX emphasis) from NAU, I bring both design thinking and engineering rigor to every project.</p>
                     <p>At GradGuard, I was one of four interns selected to continue post-program, where I led a complete design system audit and built production Vue.js components used across their product suite.</p>
                     <p>I'm driven by the belief that great interfaces should feel invisible—they help users accomplish goals without friction, confusion, or frustration.</p>
@@ -299,16 +288,16 @@
                                 <span>Figma</span>
                             </div>
                             <div class="tool-item">
-                                <img src="https://cdn.simpleicons.org/miro/050038" alt="Miro">
-                                <span>Miro</span>
+                                <img src="https://cdn.simpleicons.org/figma/A259FF" alt="FigJam">
+                                <span>FigJam</span>
                             </div>
                             <div class="tool-item">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" alt="Canva">
-                                <span>Canva</span>
+                                <img src="https://cdn.simpleicons.org/framer/0055FF" alt="Framer">
+                                <span>Framer</span>
                             </div>
                             <div class="tool-item">
-                                <img src="https://cdn.simpleicons.org/adobelightroom/31A8FF" alt="Lightroom">
-                                <span>Lightroom</span>
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/storybook/storybook-original.svg" alt="Storybook">
+                                <span>Storybook</span>
                             </div>
                         </div>
                     </div>
@@ -317,16 +306,12 @@
                         <span class="card-label">Development & Workflow</span>
                         <div class="tools-grid">
                             <div class="tool-item">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue">
-                                <span>Vue.js</span>
+                                <img src="https://cdn.simpleicons.org/anthropic/D4A27F" alt="Claude">
+                                <span>Claude</span>
                             </div>
                             <div class="tool-item">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
-                                <span>React</span>
-                            </div>
-                            <div class="tool-item">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
-                                <span>TypeScript</span>
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira">
+                                <span>Jira</span>
                             </div>
                             <div class="tool-item">
                                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind">
@@ -337,8 +322,12 @@
                                 <span>Git</span>
                             </div>
                             <div class="tool-item">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira">
-                                <span>Jira</span>
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                                <span>React</span>
+                            </div>
+                            <div class="tool-item">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+                                <span>HTML</span>
                             </div>
                         </div>
                     </div>
@@ -350,6 +339,12 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">Let's discuss your next project</p>
+                </div>
+            </div>
             <div class="contact-grid">
                 <div class="contact-main fade-up">
                     <h2>Let's create something amazing together</h2>
