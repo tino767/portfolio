@@ -17,36 +17,41 @@
     --text-inverse: #ffffff;
     --accent: #e63946;
     --accent-glow: rgba(230, 57, 70, 0.4);
+    --accent-rgb: 230, 57, 70;
     --accent-green: #10b981;
     --border-light: rgba(0,0,0,0.06);
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
     --shadow-glow: 0 0 30px var(--accent-glow);
     --radius-sm: 12px;
     --radius-md: 20px;
     --radius-lg: 24px;
     --bg-surface: var(--bg-primary);
-    /* Very transparent for strong frosted glass effect */
-    --card-bg: rgba(255, 255, 255, 0.4);
-    --card-border: rgba(255, 255, 255, 0.6);
-    --dot-color: rgba(0, 0, 0, 0.08);
+    /* Frosted glass effect */
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-border: rgba(255, 255, 255, 0.3);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --dot-color: rgba(0, 0, 0, 0.15);
     /* Elevated items inside cards */
-    --elevated-bg: rgba(255, 255, 255, 0.8);
-    --elevated-border: rgba(255, 255, 255, 0.9);
+    --elevated-bg: rgba(255, 255, 255, 0.9);
+    --elevated-border: rgba(0, 0, 0, 0.06);
     /* Dark accent cards (skills, social, marquee) */
-    --dark-card-bg: rgba(20, 20, 20, 0.6);
+    --dark-card-bg: rgba(30, 30, 30, 0.9);
     --dark-card-border: rgba(255, 255, 255, 0.1);
     --dark-card-text: #f5f5f5;
+    /* Social buttons in light mode */
+    --social-btn-bg: rgba(255, 255, 255, 0.8);
+    --social-btn-border: rgba(0, 0, 0, 0.08);
+    --social-btn-color: #4a4a4a;
     /* Marquee */
-    --marquee-bg: rgba(20, 20, 20, 0.6);
-    --marquee-border: rgba(230, 57, 70, 0.3);
+    --marquee-bg: rgba(20, 20, 20, 0.7);
+    --marquee-border: rgba(230, 57, 70, 0.2);
 }
 
 [data-theme="dark"] {
     --bg-primary: #0a0a0a;
     --bg-card: #1a1a1a;
     --bg-dark: #151515;
-    --bg-accent-light: rgba(230, 57, 70, 0.15);
     --text-primary: #f5f5f5;
     --text-secondary: #b0b0b0;
     --text-muted: #6a6a6a;
@@ -56,12 +61,18 @@
     --shadow-md: 0 8px 32px rgba(0,0,0,0.6);
     --bg-surface: rgba(255,255,255,0.03);
     --bg-mint: rgba(16, 185, 129, 0.15);
-    --bg-peach: rgba(230, 57, 70, 0.15);
+    --bg-peach: rgba(37, 99, 235, 0.15);
     --bg-lavender: rgba(139, 92, 246, 0.15);
-    /* Very transparent for strong frosted glass effect */
-    --card-bg: rgba(30, 30, 30, 0.4);
-    --card-border: rgba(255, 255, 255, 0.1);
-    --dot-color: rgba(255, 255, 255, 0.04);
+    /* Blue accent for dark mode */
+    --accent: #2563eb;
+    --accent-glow: rgba(37, 99, 235, 0.4);
+    --accent-rgb: 37, 99, 235;
+    --bg-accent-light: rgba(37, 99, 235, 0.15);
+    /* Frosted glass effect */
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.15);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --dot-color: rgba(255, 255, 255, 0.1);
     /* Elevated items inside cards */
     --elevated-bg: rgba(255, 255, 255, 0.08);
     --elevated-border: rgba(255, 255, 255, 0.12);
@@ -69,9 +80,13 @@
     --dark-card-bg: rgba(15, 15, 15, 0.5);
     --dark-card-border: rgba(255, 255, 255, 0.08);
     --dark-card-text: #f5f5f5;
+    /* Social buttons in dark mode */
+    --social-btn-bg: rgba(255, 255, 255, 0.08);
+    --social-btn-border: rgba(255, 255, 255, 0.1);
+    --social-btn-color: #ffffff;
     /* Marquee */
-    --marquee-bg: rgba(15, 15, 15, 0.5);
-    --marquee-border: rgba(230, 57, 70, 0.2);
+    --marquee-bg: rgba(15, 15, 15, 0.4);
+    --marquee-border: rgba(37, 99, 235, 0.2);
 }
 
 /* ============================================
@@ -81,6 +96,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.3s ease,
+                box-shadow 0.3s ease,
+                fill 0.3s ease;
 }
 
 html {
@@ -107,6 +127,22 @@ body::before {
     bottom: 0;
     background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
     background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Color bloom accents on background */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 10% 20%, rgba(var(--accent-rgb), 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 90% 80%, rgba(var(--accent-rgb), 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(var(--accent-rgb), 0.04) 0%, transparent 40%);
     pointer-events: none;
     z-index: 0;
 }
@@ -143,8 +179,8 @@ body > * {
     position: absolute;
     inset: 0;
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border-radius: inherit;
     z-index: -1;
 }
@@ -194,8 +230,8 @@ button {
     align-items: center;
     justify-content: space-between;
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: 100px;
     padding: 6px 6px 6px 24px;
@@ -309,8 +345,8 @@ button {
     left: 16px;
     right: 16px;
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-md);
     padding: 8px;
@@ -344,27 +380,21 @@ button {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 320px;
-    grid-template-rows: auto auto;
-    gap: 12px;
-}
-
-/* Left Column - Main Content */
-.hero-main {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    grid-template-columns: 1fr 340px;
+    gap: 16px;
 }
 
 .hero-intro {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
-    padding: 40px;
+    padding: 48px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    box-shadow: var(--card-shadow);
 }
 
 .hero-top-row {
@@ -464,8 +494,8 @@ button {
     font-weight: 600;
     color: var(--text-primary);
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: 100px;
     transition: all 0.3s ease;
@@ -476,87 +506,73 @@ button {
     transform: translateY(-2px);
 }
 
-/* Hero Bottom Row - Stats */
-.hero-stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+/* Skills Card */
+.skills-card {
+    background: var(--dark-card-bg);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
+    border: 1px solid var(--dark-card-border);
+    color: var(--dark-card-text);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--card-shadow);
 }
 
-.stat-card {
-    padding: 24px;
-    border-radius: var(--radius-md);
-    text-align: center;
+.skills-card .card-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
     transition: all 0.3s ease;
 }
 
-.stat-card:hover {
-    transform: translateY(-4px);
-}
-
-.stat-card.blue {
+.skill-tag:hover {
     background: var(--accent);
-    color: white;
-    box-shadow: 0 8px 30px var(--accent-glow);
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px var(--accent-glow);
 }
 
-.stat-card.mint {
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--card-border);
-    color: var(--text-primary);
-}
-
-.stat-card.light {
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--card-border);
-    color: var(--text-primary);
-}
-
-.stat-number {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 4px;
-}
-
-.stat-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    opacity: 0.8;
-}
-
-/* Right Column - Profile & Skills */
-.hero-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
+/* Profile Card */
 .profile-card {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     position: relative;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--card-shadow);
 }
 
 .profile-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
 }
 
 .profile-image {
     width: 100%;
-    aspect-ratio: 1;
+    flex: 1;
+    min-height: 200px;
     overflow: hidden;
 }
 
@@ -604,53 +620,6 @@ button {
     box-shadow: 0 6px 20px var(--accent-glow);
 }
 
-.skills-card {
-    background: var(--dark-card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--dark-card-border);
-    color: var(--dark-card-text);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    flex: 1;
-    transition: all 0.3s ease;
-}
-
-.skills-card:hover {
-    transform: translateY(-4px);
-}
-
-.skills-card .card-label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.6;
-    margin-bottom: 16px;
-    display: block;
-}
-
-.skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.skill-tag {
-    padding: 8px 14px;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 100px;
-    transition: all 0.3s ease;
-}
-
-.skill-tag:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 4px 15px var(--accent-glow);
-}
 
 /* ============================================
    Marquee
@@ -658,39 +627,85 @@ button {
 .marquee {
     padding: 20px 0;
     background: var(--marquee-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border-top: 1px solid var(--marquee-border);
     border-bottom: 1px solid var(--marquee-border);
     overflow: hidden;
     margin: 40px 0;
+    position: relative;
+}
+
+/* Portal bloom effects on sides */
+.marquee::before,
+.marquee::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+    filter: blur(10px);
+}
+
+.marquee::before {
+    left: -20px;
+    background: radial-gradient(ellipse 100% 150% at left center,
+        rgba(var(--accent-rgb), 0.7) 0%,
+        rgba(var(--accent-rgb), 0.4) 25%,
+        rgba(var(--accent-rgb), 0.15) 50%,
+        transparent 70%);
+    animation: portalPulse 4s ease-in-out infinite;
+}
+
+.marquee::after {
+    right: -20px;
+    background: radial-gradient(ellipse 100% 150% at right center,
+        rgba(var(--accent-rgb), 0.7) 0%,
+        rgba(var(--accent-rgb), 0.4) 25%,
+        rgba(var(--accent-rgb), 0.15) 50%,
+        transparent 70%);
+    animation: portalPulse 4s ease-in-out infinite;
+}
+
+@keyframes portalPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.9; }
 }
 
 .marquee-track {
     display: flex;
-    gap: 48px;
-    animation: scroll 20s linear infinite;
     width: max-content;
+    animation: marqueeScroll 25s linear infinite;
+}
+
+.marquee-content {
+    display: flex;
+    flex-shrink: 0;
 }
 
 .marquee-item {
+    font-family: 'Doto', monospace;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-inverse);
     text-transform: uppercase;
     letter-spacing: 2px;
     white-space: nowrap;
     display: flex;
     align-items: center;
-    gap: 48px;
+    padding: 0 24px;
+    flex-shrink: 0;
 }
 
 .marquee-item::after {
     content: '✦';
     opacity: 0.4;
+    margin-left: 24px;
 }
 
-@keyframes scroll {
+@keyframes marqueeScroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
@@ -744,18 +759,18 @@ button {
 
 .project-card {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     transition: all 0.4s ease;
     position: relative;
+    box-shadow: var(--card-shadow);
 }
 
 .project-card:hover {
     transform: translateY(-8px);
-    box-shadow: var(--shadow-md);
     border-color: var(--accent);
 }
 
@@ -788,7 +803,7 @@ button {
 }
 
 .project-content {
-    padding: 24px;
+    padding: 28px;
 }
 
 .project-meta {
@@ -812,7 +827,7 @@ button {
     background: var(--bg-accent-light);
     color: var(--accent);
     border-radius: 100px;
-    border: 1px solid rgba(230, 57, 70, 0.2);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
 }
 
 .project-number {
@@ -865,15 +880,17 @@ button {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 12px;
+    align-items: stretch;
 }
 
 .about-main {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
-    padding: 40px;
+    padding: 48px;
+    box-shadow: var(--card-shadow);
 }
 
 .about-main h2 {
@@ -901,11 +918,12 @@ button {
 
 .tools-card {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
-    padding: 24px;
+    padding: 28px;
+    box-shadow: var(--card-shadow);
 }
 
 .tools-card .card-label {
@@ -920,8 +938,8 @@ button {
 
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
 .tool-item {
@@ -946,36 +964,6 @@ button {
     font-weight: 600;
 }
 
-.edu-card {
-    background: var(--accent);
-    color: white;
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: 0 8px 30px var(--accent-glow);
-    transition: all 0.3s ease;
-}
-
-.edu-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px var(--accent-glow);
-}
-
-.edu-card .year {
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 4px;
-}
-
-.edu-card .label {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    opacity: 0.9;
-}
 
 /* ============================================
    Contact Section
@@ -988,15 +976,17 @@ button {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 12px;
+    align-items: stretch;
 }
 
 .contact-main {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
-    padding: 40px;
+    padding: 48px;
+    box-shadow: var(--card-shadow);
 }
 
 .contact-main h2 {
@@ -1012,22 +1002,20 @@ button {
     max-width: 400px;
 }
 
-.contact-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.email-card {
+.contact-info-card {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
-    padding: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: var(--card-shadow);
 }
 
-.email-card .card-label {
+.contact-info-item .card-label {
     font-size: 0.6875rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -1037,36 +1025,15 @@ button {
     display: block;
 }
 
-.email-card a {
-    font-size: 0.9375rem;
+.contact-link {
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
-    word-break: break-all;
+    transition: color 0.3s ease;
 }
 
-.email-card a:hover {
+.contact-link:hover {
     color: var(--accent);
-}
-
-.social-card {
-    background: var(--dark-card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--dark-card-border);
-    color: var(--dark-card-text);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    flex: 1;
-}
-
-.social-card .card-label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.6;
-    margin-bottom: 16px;
-    display: block;
 }
 
 .social-links {
@@ -1080,16 +1047,17 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--social-btn-bg);
+    border: 1px solid var(--social-btn-border);
     border-radius: var(--radius-sm);
-    color: white;
+    color: var(--social-btn-color);
     transition: all 0.3s ease;
 }
 
 .social-btn:hover {
     background: var(--accent);
     border-color: var(--accent);
+    color: white;
     box-shadow: 0 4px 15px var(--accent-glow);
     transform: translateY(-2px);
 }
@@ -1117,7 +1085,13 @@ button {
 }
 
 .footer-copy .dot-text {
-    font-size: 1.25rem;
+    font-family: 'Doto', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-shadow: none;
 }
 
 .back-to-top {
@@ -1164,19 +1138,6 @@ button {
 .fade-up:nth-child(4) { animation-delay: 0.25s; }
 .fade-up:nth-child(5) { animation-delay: 0.3s; }
 
-/* Glow pulse animation */
-@keyframes glowPulse {
-    0%, 100% {
-        box-shadow: 0 4px 20px var(--accent-glow);
-    }
-    50% {
-        box-shadow: 0 8px 40px var(--accent-glow);
-    }
-}
-
-.stat-card.blue {
-    animation: glowPulse 3s ease-in-out infinite;
-}
 
 /* Gradient border animation for featured cards */
 .project-card.featured::before {
@@ -1188,7 +1149,7 @@ button {
     bottom: 0;
     border-radius: var(--radius-lg);
     padding: 1px;
-    background: linear-gradient(135deg, var(--accent), transparent 40%, transparent 60%, rgba(230, 57, 70, 0.3));
+    background: linear-gradient(135deg, var(--accent), transparent 40%, transparent 60%, rgba(var(--accent-rgb), 0.3));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -1206,23 +1167,11 @@ button {
    ============================================ */
 @media (max-width: 1024px) {
     .hero-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-sidebar {
-        flex-direction: row;
-    }
-
-    .profile-card {
-        flex: 1;
+        grid-template-columns: 1fr 280px;
     }
 
     .profile-image {
-        aspect-ratio: 4/3;
-    }
-
-    .skills-card {
-        flex: 1;
+        min-height: 200px;
     }
 
     .project-card.featured {
@@ -1238,12 +1187,14 @@ button {
         grid-template-columns: 1fr;
     }
 
-    .contact-grid {
-        grid-template-columns: 1fr;
+    .about-sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
-    .contact-sidebar {
-        flex-direction: row;
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1260,16 +1211,21 @@ button {
         padding: 90px 0 30px;
     }
 
-    .hero-sidebar {
-        flex-direction: column;
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 
-    .hero-stats-row {
-        grid-template-columns: 1fr 1fr;
+    .hero-intro {
+        padding: 28px;
     }
 
-    .hero-stats-row .stat-card:last-child {
-        grid-column: span 2;
+    .profile-image {
+        min-height: 280px;
+    }
+
+    .about-sidebar {
+        grid-template-columns: 1fr;
     }
 
     .work-grid {
@@ -1282,14 +1238,20 @@ button {
         gap: 12px;
     }
 
-    .contact-sidebar {
-        flex-direction: column;
+    .contact-info-card {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .contact-info-item {
+        flex: 1;
+        min-width: 150px;
     }
 }
 
 @media (max-width: 480px) {
     .hero-intro {
-        padding: 28px;
+        padding: 24px;
     }
 
     .hero-title {
@@ -1307,16 +1269,20 @@ button {
         justify-content: center;
     }
 
-    .hero-stats-row {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-stats-row .stat-card:last-child {
-        grid-column: span 1;
+    .profile-image {
+        min-height: 250px;
     }
 
     .tools-grid {
         grid-template-columns: 1fr;
+    }
+
+    .contact-info-card {
+        flex-direction: column;
+    }
+
+    .contact-info-item {
+        min-width: auto;
     }
 
     .footer-content {
