@@ -49,6 +49,12 @@
     /* Navigation glass */
     --nav-glass: rgba(255, 255, 255, 0.7);
     --nav-border: rgba(0, 0, 0, 0.08);
+    /* Secondary button */
+    --btn-secondary-bg: rgba(0, 0, 0, 0.06);
+    --btn-secondary-border: rgba(0, 0, 0, 0.12);
+    --btn-secondary-hover: rgba(0, 0, 0, 0.08);
+    /* Logo */
+    --logo-filter: invert(1);
 }
 
 [data-theme="dark"] {
@@ -93,6 +99,12 @@
     /* Navigation glass */
     --nav-glass: rgba(20, 20, 20, 0.7);
     --nav-border: rgba(255, 255, 255, 0.1);
+    /* Secondary button */
+    --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+    --btn-secondary-border: rgba(255, 255, 255, 0.1);
+    --btn-secondary-hover: rgba(255, 255, 255, 0.08);
+    /* Logo */
+    --logo-filter: none;
 }
 
 /* ============================================
@@ -358,9 +370,14 @@ button {
     align-items: center;
     justify-content: center;
     color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle {
     background: var(--bg-surface);
     border: 1px solid var(--card-border);
-    transition: all 0.3s ease;
 }
 
 .theme-toggle:hover {
@@ -577,16 +594,15 @@ button {
     font-size: 0.9375rem;
     font-weight: 600;
     color: var(--text-primary);
-    background: var(--card-bg);
-    backdrop-filter: blur(60px) saturate(200%);
-    -webkit-backdrop-filter: blur(60px) saturate(200%);
-    border: 1px solid var(--card-border);
+    background: var(--btn-secondary-bg);
+    border: 1px solid var(--btn-secondary-border);
     border-radius: 100px;
     transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
     border-color: var(--accent);
+    background: var(--btn-secondary-hover);
     transform: translateY(-2px);
 }
 
@@ -760,8 +776,8 @@ button {
 
 .marquee-track {
     display: flex;
-    width: max-content;
-    animation: marqueeScroll 25s linear infinite;
+    width: fit-content;
+    animation: marqueeScroll 30s linear infinite;
 }
 
 .marquee-content {
@@ -779,14 +795,14 @@ button {
     white-space: nowrap;
     display: flex;
     align-items: center;
-    padding: 0 24px;
     flex-shrink: 0;
+    padding-right: 48px;
 }
 
-.marquee-item::after {
+.marquee-item::before {
     content: '✦';
     opacity: 0.4;
-    margin-left: 24px;
+    margin-right: 48px;
 }
 
 @keyframes marqueeScroll {
@@ -1020,6 +1036,69 @@ button {
     margin-bottom: 0;
 }
 
+.about-intro {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.about-logo {
+    width: 48px;
+    height: 48px;
+    filter: var(--logo-filter);
+    opacity: 0.8;
+}
+
+.about-lead {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.about-quote {
+    margin: 24px 0;
+    padding: 20px 24px;
+    background: var(--bg-accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.about-stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-light);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-number {
+    font-family: 'Doto', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .about-sidebar {
     display: flex;
     flex-direction: column;
@@ -1186,22 +1265,22 @@ button {
     align-items: center;
 }
 
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-logo {
+    width: 28px;
+    height: 28px;
+    filter: var(--logo-filter);
+    transition: filter 0.3s ease;
+}
+
 .footer-copy {
     font-size: 0.8125rem;
     color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.footer-copy .dot-text {
-    font-family: 'Doto', monospace;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    text-shadow: none;
 }
 
 .back-to-top {
@@ -1210,8 +1289,10 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
+    background: var(--nav-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--nav-border);
     border-radius: 50%;
     color: var(--text-primary);
     box-shadow: var(--shadow-sm);
@@ -1450,12 +1531,12 @@ button {
 
     .marquee-item {
         font-size: 0.75rem;
-        padding: 0 16px;
+        padding-right: 32px;
         letter-spacing: 1px;
     }
 
-    .marquee-item::after {
-        margin-left: 16px;
+    .marquee-item::before {
+        margin-right: 32px;
     }
 
     /* Sections */
@@ -1514,6 +1595,35 @@ button {
 
     .about-main p {
         font-size: 0.9375rem;
+    }
+
+    .about-intro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .about-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .about-lead {
+        font-size: 1.125rem;
+    }
+
+    .about-quote {
+        padding: 16px 20px;
+        font-size: 0.875rem;
+    }
+
+    .about-stats {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .stat-number {
+        font-size: 1.125rem;
     }
 
     .about-sidebar {
