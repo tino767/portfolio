@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
 });
 
+
 /**
  * Theme Toggle
  * Switches between dark and light mode, saves preference to localStorage

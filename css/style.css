@@ -46,6 +46,9 @@
     /* Marquee */
     --marquee-bg: rgba(20, 20, 20, 0.7);
     --marquee-border: rgba(230, 57, 70, 0.2);
+    /* Navigation glass */
+    --nav-glass: rgba(255, 255, 255, 0.7);
+    --nav-border: rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="dark"] {
@@ -87,6 +90,9 @@
     /* Marquee */
     --marquee-bg: rgba(15, 15, 15, 0.4);
     --marquee-border: rgba(37, 99, 235, 0.2);
+    /* Navigation glass */
+    --nav-glass: rgba(20, 20, 20, 0.7);
+    --nav-border: rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================
@@ -229,14 +235,15 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--card-bg);
-    backdrop-filter: blur(60px) saturate(200%);
-    -webkit-backdrop-filter: blur(60px) saturate(200%);
-    border: 1px solid var(--card-border);
+    background: var(--nav-glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--nav-border);
     border-radius: 100px;
     padding: 6px 6px 6px 24px;
     box-shadow: var(--shadow-md);
 }
+
 
 .nav-logo {
     font-family: 'Doto', monospace;
@@ -245,6 +252,7 @@ button {
     color: var(--text-primary);
     letter-spacing: 1px;
     text-transform: uppercase;
+    transition: color 0.3s ease;
 }
 
 .nav-center {
@@ -258,7 +266,7 @@ button {
     font-weight: 500;
     color: var(--text-secondary);
     border-radius: 100px;
-    transition: all 0.2s;
+    transition: color 0.3s ease, background 0.2s ease;
 }
 
 .nav-link:hover {
@@ -329,7 +337,7 @@ button {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    transition: all 0.3s;
+    transition: all 0.3s, background 0.3s ease;
     border-radius: 2px;
 }
 
