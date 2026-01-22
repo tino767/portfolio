@@ -96,6 +96,76 @@
 }
 
 /* ============================================
+   Custom Cursor
+   ============================================ */
+.cursor {
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 0 1.5px #0d0d0d;
+}
+
+.cursor-follower {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid #ffffff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, opacity 0.2s ease, border-radius 0.15s ease;
+    box-shadow: 0 0 0 1.5px #0d0d0d;
+}
+
+/* Hover state */
+.cursor.hovering {
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+.cursor-follower.hovering {
+    width: 44px;
+    height: 44px;
+    opacity: 0.7;
+}
+
+/* Click state */
+.cursor.clicking {
+    transform: translate(-50%, -50%) scale(0.6);
+}
+
+.cursor-follower.clicking {
+    width: 18px;
+    height: 18px;
+}
+
+/* Scrolling state */
+.cursor.scrolling {
+    transform: translate(-50%, -50%) scaleX(0.6) scaleY(1.4);
+}
+
+.cursor-follower.scrolling {
+    width: 18px;
+    height: 32px;
+    border-radius: 9px;
+    opacity: 0.6;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .cursor,
+    .cursor-follower {
+        display: none;
+    }
+}
+
+/* ============================================
    Reset & Base
    ============================================ */
 *, *::before, *::after {
@@ -248,9 +318,9 @@ button {
 .nav-logo {
     font-family: 'Doto', monospace;
     font-size: 0.875rem;
-    font-weight: 700;
+    font-weight: 900;
     color: var(--text-primary);
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     transition: color 0.3s ease;
 }

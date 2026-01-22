@@ -9,7 +9,157 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initBackToTop();
     initScrollAnimations();
+    initNameScramble();
+    initCustomCursor();
 });
+
+/**
+ * Custom Cursor
+ * Creates a custom cursor that follows the mouse and reacts to interactive elements
+ */
+function initCustomCursor() {
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+
+    if (!cursor || !follower) return;
+
+    // Check for touch device
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        cursor.style.display = 'none';
+        follower.style.display = 'none';
+        return;
+    }
+
+    // Hide default cursor
+    document.body.style.cursor = 'none';
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Move main cursor immediately
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+    });
+
+    // Animate follower with lag
+    const animateFollower = () => {
+        followerX += (mouseX - followerX) * 0.15;
+        followerY += (mouseY - followerY) * 0.15;
+
+        follower.style.left = followerX + 'px';
+        follower.style.top = followerY + 'px';
+
+        requestAnimationFrame(animateFollower);
+    };
+    animateFollower();
+
+    // Interactive elements
+    const hoverables = document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .project-card, .skill-tag, .tool-item, .social-btn, .nav-link, .nav-logo');
+
+    hoverables.forEach(el => {
+        el.style.cursor = 'none';
+
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('hovering');
+            follower.classList.add('hovering');
+        });
+
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hovering');
+            follower.classList.remove('hovering');
+        });
+    });
+
+    // Click effect
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('clicking');
+        follower.classList.add('clicking');
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('clicking');
+        follower.classList.remove('clicking');
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        follower.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        follower.style.opacity = '1';
+    });
+
+    // Scroll effect
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        cursor.classList.add('scrolling');
+        follower.classList.add('scrolling');
+
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            cursor.classList.remove('scrolling');
+            follower.classList.remove('scrolling');
+        }, 150);
+    }, { passive: true });
+}
+
+/**
+ * Name Scramble Effect
+ * Periodically scrambles the nav logo text with a cool decode effect
+ */
+function initNameScramble() {
+    const logo = document.querySelector('.nav-logo');
+    if (!logo) return;
+
+    const originalText = logo.textContent;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+
+    const scramble = () => {
+        let iterations = 0;
+        const maxIterations = originalText.length;
+
+        const interval = setInterval(() => {
+            logo.textContent = originalText
+                .split('')
+                .map((char, index) => {
+                    // Keep spaces as spaces
+                    if (char === ' ') return ' ';
+
+                    // If we've passed this index, show the real character
+                    if (index < iterations) {
+                        return originalText[index];
+                    }
+
+                    // Otherwise show a random character
+                    return chars[Math.floor(Math.random() * chars.length)];
+                })
+                .join('');
+
+            iterations += 1/3; // Slow reveal
+
+            if (iterations >= maxIterations) {
+                logo.textContent = originalText;
+                clearInterval(interval);
+            }
+        }, 30);
+    };
+
+    // Run once on load after a short delay
+    setTimeout(scramble, 1000);
+
+    // Then run periodically (every 12 seconds)
+    setInterval(scramble, 12000);
+}
 
 
 /**
