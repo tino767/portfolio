@@ -291,34 +291,30 @@ function initBackToTop() {
  * Triggers animations when elements enter viewport
  */
 function initScrollAnimations() {
-    // Re-trigger animations for sections below the fold
-    const sections = document.querySelectorAll('.work, .about, .contact');
+    const animatedElements = document.querySelectorAll('.fade-up');
 
     const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -100px 0px',
+        rootMargin: '0px 0px -50px 0px',
         threshold: 0.1
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                const cards = entry.target.querySelectorAll('.bento-card');
-                cards.forEach((card, index) => {
-                    card.style.animationDelay = `${index * 0.1}s`;
-                    card.style.animationPlayState = 'running';
-                });
+                entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    sections.forEach((section) => {
-        // Pause animations initially for sections below fold
-        const cards = section.querySelectorAll('.bento-card');
-        cards.forEach((card) => {
-            card.style.animationPlayState = 'paused';
-        });
-        observer.observe(section);
+    animatedElements.forEach((el, index) => {
+        // Only observe elements below the fold
+        const rect = el.getBoundingClientRect();
+        if (rect.top > window.innerHeight) {
+            el.classList.add('scroll-animate');
+            el.style.transitionDelay = `${(index % 4) * 0.1}s`;
+            observer.observe(el);
+        }
     });
 }
