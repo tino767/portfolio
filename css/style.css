@@ -395,7 +395,7 @@ a:focus-visible {
 .nav-cta {
     padding: 10px 20px;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-inverse);
     background: var(--accent);
     border-radius: 100px;
@@ -513,7 +513,7 @@ a:focus-visible {
     gap: 8px;
     padding: 8px 14px;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--accent-green);
@@ -575,7 +575,7 @@ a:focus-visible {
     gap: 8px;
     padding: 14px 28px;
     font-size: 0.9375rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-inverse);
     background: var(--accent);
     border-radius: 100px;
@@ -594,7 +594,7 @@ a:focus-visible {
     gap: 8px;
     padding: 14px 28px;
     font-size: 0.9375rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-primary);
     background: var(--btn-secondary-bg);
     border: 1px solid var(--btn-secondary-border);
@@ -1094,7 +1094,7 @@ a:focus-visible {
 
 .about-lead {
     font-size: 1.375rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-primary);
     margin: 0;
     line-height: 1.35;
@@ -1221,7 +1221,7 @@ a:focus-visible {
 
 .tool-item span {
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 
@@ -1293,7 +1293,7 @@ a:focus-visible {
 
 .contact-link {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-primary);
     transition: color 0.3s ease;
     position: relative;
@@ -1578,7 +1578,7 @@ a:focus-visible {
         margin-top: 8px;
         padding: 16px;
         font-size: 1rem;
-        font-weight: 600;
+        font-weight: 500;
         color: var(--text-inverse);
         background: var(--accent);
         border-radius: var(--radius-sm);
