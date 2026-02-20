@@ -4,14 +4,51 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initIntroAnimation();
     initThemeToggle();
     initMobileMenu();
     initSmoothScroll();
     initBackToTop();
     initScrollAnimations();
-    initNameScramble();
     initCustomCursor();
 });
+
+/**
+ * Intro Animation
+ * Clean startup screen with logo and progress bar
+ */
+function initIntroAnimation() {
+    const intro = document.querySelector('.intro-overlay');
+    if (!intro) return;
+
+    // Check if user has already seen the intro this session
+    if (sessionStorage.getItem('introSeen')) {
+        intro.classList.add('hidden');
+        document.body.classList.remove('intro-active');
+        initNameScramble();
+        return;
+    }
+
+    // Mark intro as active
+    document.body.classList.add('intro-active');
+
+    // Wait for progress bar to complete, then fade out
+    setTimeout(() => {
+        intro.classList.add('fade-out');
+        document.body.classList.remove('intro-active');
+        document.body.classList.add('intro-complete');
+
+        setTimeout(() => {
+            initNameScramble();
+        }, 200);
+
+        setTimeout(() => {
+            intro.classList.add('hidden');
+            document.body.classList.remove('intro-complete');
+            sessionStorage.setItem('introSeen', 'true');
+        }, 400);
+    }, 1300);
+}
 
 /**
  * Custom Cursor

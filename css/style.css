@@ -1925,3 +1925,118 @@ a:focus-visible {
     }
     html { scroll-behavior: auto; }
 }
+
+/* ============================================
+   Intro Animation - Startup
+   ============================================ */
+.intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+}
+
+.intro-overlay.fade-out {
+    opacity: 0;
+}
+
+.intro-overlay.hidden {
+    display: none;
+}
+
+.startup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.startup-logo {
+    width: 64px;
+    height: 64px;
+    filter: var(--logo-filter);
+    opacity: 0;
+    animation: startupLogoIn 0.4s ease forwards 0.1s;
+}
+
+@keyframes startupLogoIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.startup-loader {
+    width: 120px;
+    height: 3px;
+    background: var(--border-light);
+    border-radius: 3px;
+    overflow: hidden;
+    opacity: 0;
+    animation: startupLoaderIn 0.3s ease forwards 0.3s;
+}
+
+@keyframes startupLoaderIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.startup-progress {
+    height: 100%;
+    width: 0;
+    background: var(--accent);
+    border-radius: 3px;
+    animation: startupProgress 0.8s ease forwards 0.4s;
+}
+
+@keyframes startupProgress {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Page content hidden until intro completes */
+body.intro-active {
+    overflow: hidden;
+}
+
+body.intro-active .nav,
+body.intro-active .hero,
+body.intro-active .marquee,
+body.intro-active .work,
+body.intro-active .about,
+body.intro-active .contact,
+body.intro-active .footer {
+    opacity: 0;
+}
+
+body.intro-complete .nav,
+body.intro-complete .hero,
+body.intro-complete .marquee,
+body.intro-complete .work,
+body.intro-complete .about,
+body.intro-complete .contact,
+body.intro-complete .footer {
+    animation: contentReveal 0.8s ease forwards;
+}
+
+@keyframes contentReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
